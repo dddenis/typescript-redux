@@ -1,24 +1,20 @@
 import { connect } from 'react-redux';
-import { CounterState, getCount, getActiveUser } from './reducers/counter'
-import { addOne, subtractOne, setUserAsActive } from "./actions/counter";
+import { getCount, getActiveUser } from './reducers/counter';
+import { addOne, subtractOne, setUserAsActive } from './actions/counter';
 
-import  CounterView  from './Counter';
+import CounterView from './Counter';
+import { RootState } from './reducers';
 
-const mapStateToProps = (state: CounterState) => {
-    console.log('count', getCount(state));
-    return {
-        count: getCount(state),
-        activeUser: getActiveUser(state)
-    };
-};
+const mapStateToProps = (state: RootState) => ({
+  count: getCount(state.counter),
+  activeUser: getActiveUser(state.counter),
+});
 
 const mapDispatchToProps = {
-    addOne,
-    subtractOne,
-    setUserAsActive
+  addOne,
+  subtractOne,
+  setUserAsActive,
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(CounterView);
+export default connect(mapStateToProps, mapDispatchToProps)(CounterView);
+

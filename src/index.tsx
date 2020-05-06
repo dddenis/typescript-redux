@@ -4,23 +4,33 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { createStore, compose } from 'redux'
-import { Provider } from 'react-redux'
-import rootReducer from './reducers/index'
+import { createStore, compose } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './reducers/index';
+import { ActionType } from 'typesafe-actions';
+
+import * as actions from './actions';
+
+type RootAction = ActionType<typeof actions>;
+
+declare module 'typesafe-actions' {
+  interface Types {
+    RootAction: RootAction;
+  }
+}
 
 const composeEnhancers =
-    (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+  (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
 const store = createStore(rootReducer, composeEnhancers());
 
 ReactDOM.render(
   <React.StrictMode>
-      <Provider store={store}>
-          <App />
-      </Provider>
-
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

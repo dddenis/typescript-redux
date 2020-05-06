@@ -1,9 +1,5 @@
 import { createAction } from 'typesafe-actions';
-
-export interface User {
-    id: string;
-    name: string;
-}
+import { User } from '../reducers/counter';
 
 export const addOne = createAction('ADD_ONE')<number>();
 
