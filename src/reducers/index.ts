@@ -1,7 +1,11 @@
-import { combineReducers } from 'redux'
-import {counterReducer} from './counter'
+import { combineReducers } from 'redux';
+import { counterReducer } from './counter';
 //We combine the different reducers we are going to use
 
-export default combineReducers({
-    counterReducer
+const rootReducer = combineReducers({
+  counter: counterReducer,
 });
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+export default rootReducer;
