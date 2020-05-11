@@ -5,7 +5,7 @@ import { User } from './reducers/counter';
 export type CounterProps = {
   count: number;
   activeUser: User;
-  addOne: typeof actions.addOne;
+  addOneInit: typeof actions.addOneInit;
   subtractOne: typeof actions.subtractOne;
   setUserAsActive: typeof actions.setUserAsActive;
 };
@@ -13,17 +13,15 @@ export type CounterProps = {
 const CounterView: React.FC<CounterProps> = ({
   count,
   activeUser,
-  addOne,
+  addOneInit,
   subtractOne,
   setUserAsActive,
 }) => {
-  console.log('count', count);
-  console.log('activeuser', activeUser);
   return (
     <>
       <> Counter: {count} </>
       <> Active user name: {activeUser.name} </>
-      <button onClick={() => addOne(1)}>Add one</button>
+      <button onClick={() => addOneInit(1)}>Add one</button>
       <button onClick={() => subtractOne(1)}>Subtract one</button>
       <button onClick={() => setUserAsActive({ id: 'id', name: 'tomas' })}>
         Set user as active

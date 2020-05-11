@@ -1,15 +1,17 @@
+import createSagaMiddleware from 'redux-saga';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { createStore, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './reducers/index';
 import { ActionType } from 'typesafe-actions';
 
 import * as actions from './actions';
+import rootSaga from './sagas';
 
 type RootAction = ActionType<typeof actions>;
 
@@ -19,10 +21,13 @@ declare module 'typesafe-actions' {
   }
 }
 
+const sagaMiddleware = createSagaMiddleware();
+
 const composeEnhancers =
   (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
-const store = createStore(rootReducer, composeEnhancers());
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <React.StrictMode>
