@@ -9,7 +9,7 @@ import {
 
 //AnyAction means the action can only be of one of the types of actions already made. Not very usefull
 
-export function* editCounter(action : AnyAction) {
+export function* editCounter(action : ReturnType<typeof addOne>) {
     console.log('action', action);
     try {
         yield put(addOne(action.payload));
